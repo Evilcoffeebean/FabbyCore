@@ -1,0 +1,64 @@
+name: FabbyCore
+version: 1.0-SNAPSHOT
+author: deathibring
+api-version: 1.19
+load: POSTWORLD
+description: FabbySMP's Server Core.
+main: dev.fabby.com.Core
+depend:
+  - Vault
+  - ProtocolLib
+  - SuperVanish
+commands:
+  nick:
+    aliases: [nickname, nick]
+    description: Set a player's nickname.
+    permission: fabby.nick
+  announce:
+    aliases: [announcement, broadcast, all]
+    description: Announce something to the entire server.
+    permission: fabby.announce
+  rankvoucher:
+    description: Give a rank voucher to a player.
+    permission: fabby.voucher
+  effectvoucher:
+    description: Give an effect voucher to a player.
+    permission: fabby.voucher
+  cosmetics:
+    aliases: [effects, particles, particleeffects]
+    description: Activate a particle effect.
+  withdraw:
+    description: Withdraw a certain amount of money into a voucher.
+  key:
+    aliases: [givekey, addkey]
+    description: Give a player a crate key.
+    permission: fabby.crates.key
+  moneyvoucher:
+    description: Give a money voucher to a player. Ignores balance.
+    permission: fabby.moneyvoucher
+  crates:
+    permission: fabby.crates.dev
+    description: Main Crate Selection Menu.
+  setcrate:
+    description: Set a crate type at a given location.
+    permission: fabby.setcrate
+  kit:
+    description: FabbySMP Kit Selection Menu Command.
+  kitvoucher:
+    permission: fabby.kitvoucher
+    description: Give a player a redeemable kit voucher.
+  tagvoucher:
+    permission: fabby.tagvoucher
+    description: Give a player a redeemable tag voucher.
+  tag:
+    description: FabbySMP's Tag System Command.
+  help:
+    description: FabbySMP's help command.
+  rules:
+    description: An overview of the server's rules.
+  fakeplayer:
+    aliases: [fakeplayers, fp]
+    permission: fabby.fp
+  rtp:
+    aliases: [wild, wildness, wilderness]
+    description: Teleport to a random location.
