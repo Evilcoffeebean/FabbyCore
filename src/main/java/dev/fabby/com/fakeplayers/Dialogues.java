@@ -92,7 +92,6 @@ public enum Dialogues {
     NPC_DIALOGUE_49("{npc} farm goes there"),
     NPC_DIALOGUE_50("{npc} mic isnt working");
 
-
     private static final Random random = new Random();
     private final String text;
 

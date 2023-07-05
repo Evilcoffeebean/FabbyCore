@@ -40,6 +40,18 @@ public final class NPCManager {
         return "";
     }
 
+    public String formatDiscordRank(String input) {
+        switch (input) {
+            case "default": return "";
+            case "vip": return "Vip";
+            case "mvp": return "Mvp";
+            case "elite": return "Elite";
+            case "immortal": return "Immortal";
+            case "booster" : return "Booster";
+        }
+        return "";
+    }
+
     public String[] getFromName(String name) {
         try {
             URL url_0 = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);

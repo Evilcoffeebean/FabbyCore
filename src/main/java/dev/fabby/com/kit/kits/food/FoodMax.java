@@ -77,7 +77,7 @@ public class FoodMax implements IKit {
 
     @Override
     public long getCooldodwn() {
-        return 20*60*60; //1 hour
+        return 20*60*60;
     }
 
     @Override

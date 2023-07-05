@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class FakePlayerCommand implements CommandExecutor {
 
+    private final String mcchat = "https://discord.com/api/webhooks/1126083131263418458/2L-50yxv1Flr8o1ekHS1cWVDWeEcxiodSYc8WU_ec_gps_DOeNrpLzgjmvqMdbKNGPRN";
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getLabel().equalsIgnoreCase("fakeplayer")) {
@@ -79,6 +81,9 @@ public class FakePlayerCommand implements CommandExecutor {
             String result = format.replace("{rank}", rank).replace("{name}", display).replace("{msg}", msg);
 
             Bukkit.getOnlinePlayers().forEach(online -> online.sendMessage(StringUtil.color(result)));
+
+            String discordRank = Core.getCore().getNpcManager().formatDiscordRank(FakePlayerList.valueOf(args[0]).getRank());
+            Core.getCore().discordHook(mcchat, discordRank, display, msg);
             return true;
         }
         return false;

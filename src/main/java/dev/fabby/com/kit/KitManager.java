@@ -21,6 +21,7 @@ import dev.fabby.com.kit.kits.special.ThanksKit;
 import dev.fabby.com.utils.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -28,13 +29,14 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public final class KitManager {
 
     private final Map<String, IKit> kits = Maps.newConcurrentMap();
-    private final Map<UUID, IKit> cooldownMap = Maps.newConcurrentMap();
+    private final Map<UUID, List<IKit>> cooldownMap = Maps.newConcurrentMap();
 
     public KitManager() {
         //TODO cache kits
@@ -101,20 +103,21 @@ public final class KitManager {
         return result;
     }
 
-    public void addCooldown(UUID id, IKit kit) {
-        cooldownMap.put(id, kit);
+    public void addKitList(Player player, List<IKit> kits) {
+        if (!cooldownMap.containsKey(player.getUniqueId()))
+            cooldownMap.put(player.getUniqueId(), kits);
     }
 
-    public void removeCooldown(UUID id) {
-        cooldownMap.remove(id);
+    public void addCooldown(Player player, IKit kit) {
+        cooldownMap.get(player.getUniqueId()).add(kit);
     }
 
-    public boolean isCooldown(UUID id) {
-        return cooldownMap.containsKey(id);
+    public void removeCooldown(Player player, IKit kit) {
+        cooldownMap.get(player.getUniqueId()).remove(kit);
     }
 
-    public long getCooldownDuration(UUID id) {
-        return cooldownMap.get(id).getCooldodwn();
+    public boolean isCooldown(Player player, IKit kit) {
+        return cooldownMap.get(player.getUniqueId()).contains(kit);
     }
 
     public void clearCooldowns() {

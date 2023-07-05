@@ -57,8 +57,12 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 @Getter
 public class Core extends JavaPlugin implements Listener {
@@ -273,5 +277,29 @@ public class Core extends JavaPlugin implements Listener {
                 ChatColor.translateAlternateColorCodes('&', "   &adiscord.gg/fabbysmp"),
                 ChatColor.translateAlternateColorCodes('&', "&6&l&m⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜")
         );
+    }
+
+    public void discordHook(String link, String rank, String name, String message) {
+        final String unicode = "\\u00BB"; //for '»'
+        final String payload = String.format("{\"content\": \"**%s** %s " + unicode + " %s\"}", rank, name, message);
+        try {
+            URL url = new URL(link);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            writer.write(payload);
+            writer.flush();
+            writer.close();
+
+            int result = connection.getResponseCode();
+            Bukkit.getLogger().log(Level.INFO, "Response code: " + result);
+
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

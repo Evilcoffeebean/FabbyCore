@@ -27,19 +27,18 @@ public class FakeEventHandlers implements Listener {
     private final String[] teleportChecks = {"tpa", "tpahere", "etpahere", "tpask"};
     private final Random random = new Random();
 
-    /*
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onTabComplete(final TabCompleteEvent event) {
-        completions.clear();
+        //.clear();
 
         for (FakePlayerList fake : FakePlayerList.values()) {
             if (Core.getCore().getNpcManager().isSaved(fake.getName())) {
-                completions.add(fake.getName());
+                //completions.add(fake.getName());
+                event.getCompletions().add(fake.getName());
             }
         }
-        event.setCompletions(completions);
+        event.setCompletions(event.getCompletions());
     }
-     */
 
     private void respond(FakePlayerList fakePlayer, Player receiver, String msg) {
         final String[] botChecks = {"bot", "fake", "npc", "real player", "real person"};
