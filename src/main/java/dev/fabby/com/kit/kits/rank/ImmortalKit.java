@@ -153,8 +153,8 @@ public class ImmortalKit implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
-        return 20*60*60; //1 hour
+    public long getCooldown() {
+        return 20*60*60*5; //5 hours
     }
 
     @Override

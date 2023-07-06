@@ -18,6 +18,7 @@ import dev.fabby.com.kit.kits.rank.ImmortalKit;
 import dev.fabby.com.kit.kits.rank.MvpKit;
 import dev.fabby.com.kit.kits.rank.VipKit;
 import dev.fabby.com.kit.kits.special.ThanksKit;
+import dev.fabby.com.kit.menu.KitMenuListener;
 import dev.fabby.com.utils.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -31,6 +32,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public final class KitManager {
@@ -57,6 +59,25 @@ public final class KitManager {
         kits.put("Elite", new EliteKit());
         kits.put("Immortal", new ImmortalKit());
         kits.put("Thanks", new ThanksKit());
+
+        KitMenuListener.mappings.put(Material.CHARCOAL, "Player");
+        KitMenuListener.mappings.put(Material.COAL, "PlayerPlus");
+        KitMenuListener.mappings.put(Material.COAL_BLOCK, "PlayerMax");
+        KitMenuListener.mappings.put(Material.APPLE, "Food");
+        KitMenuListener.mappings.put(Material.GOLDEN_APPLE, "FoodPlus");
+        KitMenuListener.mappings.put(Material.ENCHANTED_GOLDEN_APPLE, "FoodMax");
+        KitMenuListener.mappings.put(Material.IRON_PICKAXE, "Miner");
+        KitMenuListener.mappings.put(Material.DIAMOND_PICKAXE, "MinerPlus");
+        KitMenuListener.mappings.put(Material.NETHERITE_PICKAXE, "MinerMax");
+        KitMenuListener.mappings.put(Material.BREWING_STAND, "Biohazard");
+        KitMenuListener.mappings.put(Material.ENCHANTING_TABLE, "Enchantment");
+        KitMenuListener.mappings.put(Material.PHANTOM_MEMBRANE, "Clandestine");
+        KitMenuListener.mappings.put(Material.GREEN_DYE, "Vip");
+        KitMenuListener.mappings.put(Material.LIGHT_BLUE_DYE, "Mvp");
+        KitMenuListener.mappings.put(Material.BLUE_DYE, "Elite");
+        KitMenuListener.mappings.put(Material.RED_DYE, "Immortal");
+        KitMenuListener.mappings.put(Material.RED_TULIP, "Thanks");
+
     }
 
     public IKit getKit(String name) {
@@ -118,6 +139,15 @@ public final class KitManager {
 
     public boolean isCooldown(Player player, IKit kit) {
         return cooldownMap.get(player.getUniqueId()).contains(kit);
+    }
+
+
+    public Optional<Long> getRemainingCooldown(Player player, IKit kit) {
+
+        if (isCooldown(player, kit)) {
+            return Optional.of(kit.getCooldown());
+        }
+        return Optional.empty();
     }
 
     public void clearCooldowns() {

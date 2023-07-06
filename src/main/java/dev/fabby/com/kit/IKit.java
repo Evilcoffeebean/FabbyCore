@@ -13,7 +13,7 @@ public interface IKit {
     ItemStack getMenuItem();
     ItemStack[] getArmorContents();
     ItemStack[] getInventoryContents();
-    long getCooldodwn();
+    long getCooldown();
     double getPrice();
     void execute(Player player);
     Sound error = Sound.BLOCK_NOTE_BLOCK_BASS, okay = Sound.ENTITY_PLAYER_LEVELUP;

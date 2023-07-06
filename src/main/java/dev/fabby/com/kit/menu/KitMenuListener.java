@@ -2,7 +2,9 @@ package dev.fabby.com.kit.menu;
 
 import dev.fabby.com.Core;
 import dev.fabby.com.kit.IKit;
+import lombok.var;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +13,42 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+
 
 public class KitMenuListener implements Listener {
+
+
+    private final Material[] playerKits = {
+            // Player, Player+, Player++
+            Material.CHARCOAL,
+            Material.COAL,
+            Material.COAL_BLOCK,
+            // Food, Food+, Food++
+            Material.APPLE,
+            Material.GOLDEN_APPLE,
+            Material.ENCHANTED_GOLDEN_APPLE,
+            // Miner, Miner+, Miner++
+            Material.IRON_PICKAXE,
+            Material.DIAMOND_PICKAXE,
+            Material.NETHERITE_PICKAXE,
+            // Special
+            Material.BREWING_STAND,
+            Material.ENCHANTING_TABLE,
+            Material.PHANTOM_MEMBRANE,
+            // Ranks
+            Material.GREEN_DYE,
+            Material.LIGHT_BLUE_DYE,
+            Material.BLUE_DYE,
+            Material.RED_DYE,
+            // Booster
+            Material.RED_TULIP
+    };
+
+    public static final HashMap<Material, String> mappings = new HashMap<>();
+
 
     @EventHandler (priority = EventPriority.LOW)
     public void onKitSelect(final InventoryClickEvent e) {
@@ -28,8 +64,39 @@ public class KitMenuListener implements Listener {
         if (e.getView().getTitle().contains("Kit Menu")) {
             e.setCancelled(true);
 
-            switch (e.getCurrentItem().getType()) {
+
+            var isPlayerKit = Arrays.stream(playerKits).anyMatch(material -> material == e.getCurrentItem().getType());
+
+            if (isPlayerKit) {
+                var clickedKit = mappings.get(e.getCurrentItem().getType());
+
+                if(!player.hasPermission("fabby.kit." + mappings.get(e.getCurrentItem().getType()))) {
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                    player.sendMessage(ChatColor.AQUA + "You don't have permission to purchase that kit.");
+                    return;
+                }
+
+                if(Core.getCore().getKitManager().isCooldown(player, Core.getCore().getKitManager().getKit(mappings.get(e.getCurrentItem().getType()))) && Core.getCore().getKitManager().getRemainingCooldown(player, Core.getCore().getKitManager().getKit(mappings.get(e.getCurrentItem().getType()))).get() > 0) {
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                    player.sendMessage(ChatColor.AQUA + "You can't currently purchase this kit.");
+                    return;
+                }
+
+                Core.getCore().getKitManager().getKit(mappings.get(e.getCurrentItem().getType())).execute(player);
+                Core.getCore().getKitManager().addCooldown(player, Core.getCore().getKitManager().getKit(mappings.get(e.getCurrentItem().getType())));
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                player.sendMessage(ChatColor.AQUA + "You have purchased the " + Core.getCore().getKitManager().getKit(mappings.get(e.getCurrentItem().getType())).getDisplayName() + ".");
+                player.closeInventory();
+            }
+
+
+            /*switch (e.getCurrentItem().getType()) {
                 //player kits
+
+
+
                 case CHARCOAL:
                     final IKit playerKit = Core.getCore().getKitManager().getKit("Player");
 
@@ -477,7 +544,7 @@ public class KitMenuListener implements Listener {
                         }
                     }.runTaskTimerAsynchronously(Core.getCore(), 0L, 20L);
                     return;
-            }
+            }*/
         }
     }
 }

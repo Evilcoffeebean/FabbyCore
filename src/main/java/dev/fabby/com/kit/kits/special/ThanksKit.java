@@ -52,7 +52,7 @@ public class ThanksKit implements IKit {
                 StringUtil.color("&79. (3x) Shulker Box"),
                 StringUtil.color("&710. (10x) End Crystal"),
                 "",
-                StringUtil.color("&7Cost: &e" + (getPrice() <= 0 ? "Free!" : "$" + getCooldodwn())),
+                StringUtil.color("&7Cost: &e" + (getPrice() <= 0 ? "Free!" : "$" + getCooldown())),
                 "",
                 StringUtil.color("&7Cooldown duration: &a" + StringUtil.formatKitCooldown(this))
         };
@@ -85,8 +85,8 @@ public class ThanksKit implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
-        return 20*60*60; //1 hour
+    public long getCooldown() {
+        return (System.currentTimeMillis() + 1000*60); //1 hour
     }
 
     @Override

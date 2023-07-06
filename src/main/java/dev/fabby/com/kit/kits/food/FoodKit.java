@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class FoodKit implements IKit {
+public class  FoodKit implements IKit {
 
     @Override
     public String getName() {
@@ -68,7 +68,7 @@ public class FoodKit implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
+    public long getCooldown() {
         return 20*60*60;
     }
 

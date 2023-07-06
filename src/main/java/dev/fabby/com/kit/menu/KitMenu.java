@@ -108,7 +108,6 @@ public class KitMenu extends MenuUtil {
                     continue;
                 case "17":
                     setItem(i, thanks);
-                    continue;
             }
         }
         build(caller);

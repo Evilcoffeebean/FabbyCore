@@ -104,7 +104,7 @@ public final class StringUtil {
     }
 
     public static String formatKitCooldown(IKit kit) {
-        long hours = kit.getCooldodwn()/(20*60*60);
+        long hours = kit.getCooldown()/(20*60*60);
         return (hours <= 1) ? hours + " Hour" : hours + " Hours";
     }
 }

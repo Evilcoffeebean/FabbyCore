@@ -110,8 +110,8 @@ public class MvpKit implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
-        return 20*60*60; //1 hour
+    public long getCooldown() {
+        return 20*60*60*3; //3 hours
     }
 
     @Override

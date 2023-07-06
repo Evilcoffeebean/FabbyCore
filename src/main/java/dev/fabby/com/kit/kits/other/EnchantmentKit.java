@@ -85,7 +85,7 @@ public class EnchantmentKit implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
+    public long getCooldown() {
         return 20*60*60; //1 hour
     }
 

@@ -74,7 +74,7 @@ public class FoodPlus implements IKit {
     }
 
     @Override
-    public long getCooldodwn() {
+    public long getCooldown() {
         return 20*60*60;
     }
 
