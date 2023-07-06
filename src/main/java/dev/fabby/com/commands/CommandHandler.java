@@ -2,6 +2,8 @@ package dev.fabby.com.commands;
 
 import dev.fabby.com.Core;
 import dev.fabby.com.commands.commandargs.NoArgTabCompleter;
+import dev.fabby.com.commands.staff.StaffChatCommand;
+import dev.fabby.com.commands.staff.moderation.InvSeeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -37,7 +39,8 @@ public class CommandHandler implements Listener {
     }
 
     private void registerCommands() {
-;
+        registerCommand(new InvSeeCommand());
+        registerCommand(new StaffChatCommand());
     }
 
     public void registerCommand(final BaseCommand command) {
