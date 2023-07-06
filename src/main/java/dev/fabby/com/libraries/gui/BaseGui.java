@@ -92,7 +92,7 @@ public abstract class BaseGui implements InventoryHolder {
         this.rows = finalRows;
         this.interactionModifiers = safeCopyOf(interactionModifiers);
 
-        inventory = Bukkit.createInventory(this, finalRows * 9, String.valueOf(title));
+        inventory = Bukkit.createInventory(this, this.rows * 9, String.valueOf(title));
     }
 
     public BaseGui(final int rows, @NotNull final String title, @NotNull final Set<InteractionModifier> interactionModifiers) {
@@ -500,7 +500,7 @@ public abstract class BaseGui implements InventoryHolder {
      */
     @Contract(" -> this")
     public BaseGui disableAllInteractions() {
-        interactionModifiers.addAll(InteractionModifier.Companion.getModifiers());
+        interactionModifiers.addAll(InteractionModifier.VALUES);
         return this;
     }
 

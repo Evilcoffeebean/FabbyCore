@@ -21,6 +21,7 @@ import dev.fabby.com.fakeplayers.npc.NPCManager;
 import dev.fabby.com.fakeplayers.tasks.DeathMessageTask;
 import dev.fabby.com.kit.KitManager;
 import dev.fabby.com.kit.menu.KitMenuListener;
+import dev.fabby.com.listeners.StaffJoin;
 import dev.fabby.com.misc.Scrambler;
 import dev.fabby.com.misc.ScramblerListener;
 import dev.fabby.com.staff.LocatorListener;
@@ -97,6 +98,7 @@ public class Core extends JavaPlugin implements Listener {
         cratesConfig = new CratesConfig();
         idFetcher = new IdFetcher(1);
         taskManager = new Task();
+        commandHandler = new CommandHandler();
 
         setupPermsApi();
         if (!setupEconomy()) {
@@ -140,6 +142,7 @@ public class Core extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new FakePlayerMenuListener(), this);
         getServer().getPluginManager().registerEvents(new FakeEventHandlers(), this);
         getServer().getPluginManager().registerEvents(new PersonalProtection(), this);
+        getServer().getPluginManager().registerEvents(new StaffJoin(), this);
 
         NPCLib.getInstance().registerPlugin(this);
 

@@ -1286,8 +1286,8 @@ public enum XMaterial {
      * @since 1.0.0
      */
     private static final Cache<String, XMaterial> NAME_CACHE = CacheBuilder.newBuilder()
-            .expireAfterAccess(15, TimeUnit.MINUTES)
-            .build();
+                                                                           .expireAfterAccess(15, TimeUnit.MINUTES)
+                                                                           .build();
     /*
      * A set of all the legacy names without duplicates.
      * <p>
@@ -1309,26 +1309,26 @@ public enum XMaterial {
      * @since 3.0.0
      */
     private static final Cache<XMaterial, Optional<Material>> PARSED_CACHE = CacheBuilder.newBuilder()
-            .expireAfterAccess(10, TimeUnit.MINUTES)
-            .build();
+                                                                                         .expireAfterAccess(10, TimeUnit.MINUTES)
+                                                                                         .build();
     /**
      * This is used for {@link #isOneOf(Collection)}
      *
      * @since 3.4.0
      */
     private static final LoadingCache<String, Pattern> CACHED_REGEX = CacheBuilder.newBuilder()
-            .expireAfterAccess(1, TimeUnit.HOURS)
-            .build(new CacheLoader<>() {
-                @Override
-                public Pattern load(@Nonnull String str) {
-                    try {
-                        return Pattern.compile(str);
-                    } catch (PatternSyntaxException ex) {
-                        ex.printStackTrace();
-                        return null;
-                    }
-                }
-            });
+                                                                                  .expireAfterAccess(1, TimeUnit.HOURS)
+                                                                                  .build(new CacheLoader<>() {
+                                                                                      @Override
+                                                                                      public Pattern load(@Nonnull String str) {
+                                                                                          try {
+                                                                                              return Pattern.compile(str);
+                                                                                          } catch (PatternSyntaxException ex) {
+                                                                                              ex.printStackTrace();
+                                                                                              return null;
+                                                                                          }
+                                                                                      }
+                                                                                  });
     /**
      * The current version of the server in the a form of a major version.
      *

@@ -105,7 +105,7 @@ public class Item {
     public static ItemStack glass(Material material) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(String.valueOf(Component.empty()));
+        meta.setDisplayName(" ");
         meta.addItemFlags(ItemFlag.values());
         item.setItemMeta(meta);
         return item;

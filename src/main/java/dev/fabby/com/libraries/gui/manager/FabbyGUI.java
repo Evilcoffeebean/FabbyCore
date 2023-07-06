@@ -11,11 +11,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
-public class TarvosGUI {
+public class FabbyGUI {
 
     public Gui gui;
     public final int rows;
-    public Component title;
+    public String title;
     private final Player player;
     private HashMap<GUIPair, Integer> menuItems;
     private final boolean updates;
@@ -26,7 +26,7 @@ public class TarvosGUI {
 
     private final Task task = Core.getCore().getTaskManager();
 
-    public TarvosGUI(final int rows, final Component title, final Player player, final boolean updates, final boolean borders) {
+    public FabbyGUI(final int rows, final String title, final Player player, final boolean updates, final boolean borders) {
         this.rows = rows;
         this.title = title;
         this.player = player;
@@ -34,7 +34,7 @@ public class TarvosGUI {
         this.borders = borders;
     }
 
-    public TarvosGUI(final int rows, final Component title, final Player player, final boolean updates) {
+    public FabbyGUI(final int rows, final String title, final Player player, final boolean updates) {
         this.rows = rows;
         this.title = title;
         this.player = player;
@@ -55,7 +55,7 @@ public class TarvosGUI {
     }
 
     public void create() {
-        gui = new Gui(this.rows, this.title);
+        gui = new Gui(this.rows, String.valueOf(this.title));
         gui.setDefaultClickAction(event -> event.setCancelled(true));
         if (borders) gui.getFiller().fill(new GuiItem(Item.glass(Material.BLUE_STAINED_GLASS_PANE)));
 
@@ -129,8 +129,8 @@ public class TarvosGUI {
         gui.updateItem(slot, item);
     }
 
-    public TarvosLoadingGUI createAndDisplayLoader(final int rows, final Component title, final Player fortunePlayer, final String whatAmILoading) {
-        TarvosLoadingGUI gui = new TarvosLoadingGUI(rows, title, fortunePlayer, whatAmILoading);
+    public FabbyLoadingGUI createAndDisplayLoader(final int rows, final Component title, final Player fortunePlayer, final String whatAmILoading) {
+        FabbyLoadingGUI gui = new FabbyLoadingGUI(rows, title, fortunePlayer, whatAmILoading);
         gui.display();
         return gui;
     }

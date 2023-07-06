@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 
-public class TarvosLoadingGUI {
+public class FabbyLoadingGUI {
 
     private Gui gui;
     private final String title;
@@ -22,14 +22,14 @@ public class TarvosLoadingGUI {
     private BukkitTask runnable;
 
     @Deprecated
-    public TarvosLoadingGUI(final int rows, final String title, final Player player, final String whatAmILoading) {
+    public FabbyLoadingGUI(final int rows, final String title, final Player player, final String whatAmILoading) {
         this.rows = rows;
         this.title = title;
         this.player = player;
         this.whatAmILoading = whatAmILoading;
     }
 
-    public TarvosLoadingGUI(final int rows, final Component title, final Player player, final String whatAmILoading) {
+    public FabbyLoadingGUI(final int rows, final Component title, final Player player, final String whatAmILoading) {
         this.rows = rows;
         this.title = String.valueOf(title);
         this.player = player;
