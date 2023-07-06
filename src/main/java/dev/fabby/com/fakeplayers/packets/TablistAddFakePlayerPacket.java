@@ -2,9 +2,11 @@ package dev.fabby.com.fakeplayers.packets;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.*;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.PlayerInfoData;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import dev.fabby.com.utils.VersionUtil;
-import lombok.var;
 
 import java.util.Collections;
 import java.util.EnumSet;

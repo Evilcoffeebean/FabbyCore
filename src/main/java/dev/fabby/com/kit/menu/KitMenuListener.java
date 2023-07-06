@@ -1,8 +1,6 @@
 package dev.fabby.com.kit.menu;
 
 import dev.fabby.com.Core;
-import dev.fabby.com.kit.IKit;
-import lombok.var;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -11,9 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 

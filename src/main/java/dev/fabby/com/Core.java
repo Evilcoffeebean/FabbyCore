@@ -30,10 +30,7 @@ import dev.fabby.com.tab.TabUpdater;
 import dev.fabby.com.tags.Tag;
 import dev.fabby.com.tags.TagPlayerManager;
 import dev.fabby.com.tags.menu.TagMenuListener;
-import dev.fabby.com.utils.AnnouncerUtil;
-import dev.fabby.com.utils.IdFetcher;
-import dev.fabby.com.utils.StringUtil;
-import dev.fabby.com.utils.TimeUtil;
+import dev.fabby.com.utils.*;
 import dev.fabby.com.vouchers.VoucherListener;
 import dev.sergiferry.playernpc.api.NPCLib;
 import fr.mrmicky.fastboard.FastBoard;
@@ -68,6 +65,8 @@ import java.util.logging.Level;
 public class Core extends JavaPlugin implements Listener {
 
     private static Core core;
+    private CommandHandler commandHandler;
+    private Task taskManager;
     private Economy economy;
     private LuckPerms api;
     private TabUpdater tabUpdater;
@@ -97,6 +96,7 @@ public class Core extends JavaPlugin implements Listener {
         nickConfig = new NickConfig(this);
         cratesConfig = new CratesConfig();
         idFetcher = new IdFetcher(1);
+        taskManager = new Task();
 
         setupPermsApi();
         if (!setupEconomy()) {
