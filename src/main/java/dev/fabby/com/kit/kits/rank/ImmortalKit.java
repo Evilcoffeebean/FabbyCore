@@ -99,7 +99,7 @@ public class ImmortalKit implements IKit {
         Core.getCore().getKitManager().enchant(legs, Enchantment.SWIFT_SNEAK, 3);
 
         Core.getCore().getKitManager().enchant(boots, Enchantment.DURABILITY, 3);
-        Core.getCore().getKitManager().enchant(boots, Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+        Core.getCore().getKitManager().enchant(boots, Enchantment.PROTECTION_ENVIRONMENTAL, 4);
         Core.getCore().getKitManager().enchant(boots, Enchantment.MENDING, 1);
         Core.getCore().getKitManager().enchant(boots, Enchantment.DEPTH_STRIDER, 3);
         Core.getCore().getKitManager().enchant(boots, Enchantment.SOUL_SPEED, 3);

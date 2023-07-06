@@ -21,6 +21,7 @@ import dev.fabby.com.fakeplayers.npc.NPCManager;
 import dev.fabby.com.fakeplayers.tasks.DeathMessageTask;
 import dev.fabby.com.kit.KitManager;
 import dev.fabby.com.kit.menu.KitMenuListener;
+import dev.fabby.com.listeners.StaffJoin;
 import dev.fabby.com.misc.Scrambler;
 import dev.fabby.com.misc.ScramblerListener;
 import dev.fabby.com.staff.LocatorListener;
@@ -30,10 +31,7 @@ import dev.fabby.com.tab.TabUpdater;
 import dev.fabby.com.tags.Tag;
 import dev.fabby.com.tags.TagPlayerManager;
 import dev.fabby.com.tags.menu.TagMenuListener;
-import dev.fabby.com.utils.AnnouncerUtil;
-import dev.fabby.com.utils.IdFetcher;
-import dev.fabby.com.utils.StringUtil;
-import dev.fabby.com.utils.TimeUtil;
+import dev.fabby.com.utils.*;
 import dev.fabby.com.vouchers.VoucherListener;
 import dev.sergiferry.playernpc.api.NPCLib;
 import fr.mrmicky.fastboard.FastBoard;
@@ -68,6 +66,8 @@ import java.util.logging.Level;
 public class Core extends JavaPlugin implements Listener {
 
     private static Core core;
+    private CommandHandler commandHandler;
+    private Task taskManager;
     private Economy economy;
     private LuckPerms api;
     private TabUpdater tabUpdater;
@@ -97,6 +97,8 @@ public class Core extends JavaPlugin implements Listener {
         nickConfig = new NickConfig(this);
         cratesConfig = new CratesConfig();
         idFetcher = new IdFetcher(1);
+        taskManager = new Task();
+        commandHandler = new CommandHandler();
 
         setupPermsApi();
         if (!setupEconomy()) {
@@ -140,6 +142,7 @@ public class Core extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new FakePlayerMenuListener(), this);
         getServer().getPluginManager().registerEvents(new FakeEventHandlers(), this);
         getServer().getPluginManager().registerEvents(new PersonalProtection(), this);
+        getServer().getPluginManager().registerEvents(new StaffJoin(), this);
 
         NPCLib.getInstance().registerPlugin(this);
 
