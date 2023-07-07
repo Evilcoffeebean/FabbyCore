@@ -2,9 +2,12 @@ package dev.fabby.com.commands.staff;
 
 import dev.fabby.com.commands.BaseCommand;
 import dev.fabby.com.utils.StringUtil;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,30 +55,43 @@ public class StaffChatCommand extends BaseCommand {
 
     @Override
     public void execute(Player p, String[] args) {
-        if(args.length == 1 && args[0].equalsIgnoreCase("toggle")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("toggle")) {
             // TODO: Create a FabbyPlayer, make all of this more clean.
-            if(staffChat.contains(p.getUniqueId())) {
+            if (staffChat.contains(p.getUniqueId())) {
                 staffChat.remove(p.getUniqueId());
                 p.sendMessage("§cYou have disabled staff chat.");
             } else {
                 staffChat.add(p.getUniqueId());
                 p.sendMessage("§aYou have enabled staff chat.");
             }
-        } else {
-            String message = StringUtil.join(args);
-            if(staffChat.contains(p.getUniqueId())) {
-                for(Player staff : p.getServer().getOnlinePlayers()) {
-                    if(staff.hasPermission("fabby.staff.staffchat") && staffChat.contains(staff.getUniqueId())) {
-                        if(staffChat.contains(p.getUniqueId())) {
-                            staff.sendMessage("§8[§bSTAFF§8] §6" + p.getName() + "§8: §f" + message);
-                        }
-                    }
-                }
-            } else {
-                p.sendMessage("§bYou have disabled staff chat. To enable it, type §6/staffchat toggle§b.");
+            return;
+        }
+
+        if(!staffChat.contains(p.getUniqueId()) && !args[0].equalsIgnoreCase("toggle")) {
+            p.sendMessage("§cYou have disabled staff chat. To enable it, type §6/staffchat toggle§c.");
+            return;
+        }
+
+
+
+        if (staffChat.contains(p.getUniqueId()) || !args[0].equalsIgnoreCase("toggle")) {
+            StringBuilder builder = new StringBuilder();
+            for (String arg : args) {
+                builder.append(arg).append(" ");
             }
 
+            for (Player staff : p.getServer().getOnlinePlayers()) {
+                if (staff.hasPermission("fabby.staff.staffchat") && staffChat.contains(staff.getUniqueId())) {
+                    if (staffChat.contains(p.getUniqueId())) {
+                        staff.sendMessage("§8[§bSTAFF§8] §6" + p.getName() + "§8: §f" + builder);
+                    }
+                }
+            }
+        } else {
+            p.sendMessage("§bYou have disabled staff chat. To enable it, type §6/staffchat toggle§b.");
         }
+
+
     }
 
     @Override
