@@ -67,7 +67,7 @@ public class StaffChatCommand extends BaseCommand {
             return;
         }
 
-        if(!staffChat.contains(p.getUniqueId()) && !args[0].equalsIgnoreCase("toggle")) {
+        if(!staffChat.contains(p.getUniqueId())) {
             p.sendMessage("§cYou have disabled staff chat. To enable it, type §6/staffchat toggle§c.");
             return;
         }
