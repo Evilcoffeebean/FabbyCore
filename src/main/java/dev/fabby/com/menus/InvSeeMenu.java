@@ -68,6 +68,8 @@ public class InvSeeMenu extends FabbyGUI {
 
 
         items.put(new GUIPair(new GuiItem(createPlayerInfoItem(target)), event -> {
+            getPlayer().teleport(target);
+            getPlayer().sendMessage(ChatColor.GREEN + "You have teleported to §a" + target.getName() + "§a!");
 
         }), 7);
 
@@ -112,6 +114,8 @@ public class InvSeeMenu extends FabbyGUI {
         lore.add(ChatColor.GRAY + "§aGamemode: §b" + target.getGameMode().name().substring(0, 1).toUpperCase() + target.getGameMode().name().substring(1).toLowerCase());
         lore.add(ChatColor.GRAY + "§aLocation: §b" + target.getLocation().getBlockX() + "§a, §b" + target.getLocation().getBlockY() + "§a, §b" + target.getLocation().getBlockZ());
         lore.add(ChatColor.GRAY + "§aWorld: §b" + target.getWorld().getName());
+        lore.add("");
+        lore.add(ChatColor.GRAY + "§aClick to teleport to this player.");
         return ItemBuilder.from(Material.PLAYER_HEAD).setSkullOwner(target).setName("§aPlayer Info").setLore(lore).build();
 
     }
