@@ -1,6 +1,7 @@
 package dev.fabby.com.commands;
 
 import dev.fabby.com.Core;
+import dev.fabby.com.commands.admin.RestartServerCommand;
 import dev.fabby.com.commands.commandargs.NoArgTabCompleter;
 import dev.fabby.com.commands.staff.StaffChatCommand;
 import dev.fabby.com.commands.staff.moderation.InvSeeCommand;
@@ -41,6 +42,7 @@ public class CommandHandler implements Listener {
     private void registerCommands() {
         registerCommand(new InvSeeCommand());
         registerCommand(new StaffChatCommand());
+        registerCommand(new RestartServerCommand());
     }
 
     public void registerCommand(final BaseCommand command) {

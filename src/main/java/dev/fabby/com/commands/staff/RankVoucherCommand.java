@@ -39,7 +39,7 @@ public class RankVoucherCommand implements CommandExecutor, Listener {
                     return true;
                 }
 
-                if (Core.getCore().getApi().getGroupManager().getGroup(args[1]) == null) {
+                if (Core.getCore().getLuckPermsApi().getGroupManager().getGroup(args[1]) == null) {
                     Bukkit.getLogger().info(args[1] + " isn't a valid rank.");
                     return true;
                 }
@@ -49,7 +49,7 @@ public class RankVoucherCommand implements CommandExecutor, Listener {
                     return true;
                 }
 
-                final String rank = Core.getCore().getApi().getGroupManager().getGroup(args[1]).getName();
+                final String rank = Core.getCore().getLuckPermsApi().getGroupManager().getGroup(args[1]).getName();
 
                 rankVoucher = new RankVoucher(rank);
                 rankVoucher.addVoucher(Bukkit.getPlayer(args[0]));
@@ -75,7 +75,7 @@ public class RankVoucherCommand implements CommandExecutor, Listener {
                 return true;
             }
 
-            if (Core.getCore().getApi().getGroupManager().getGroup(args[1]) == null) {
+            if (Core.getCore().getLuckPermsApi().getGroupManager().getGroup(args[1]) == null) {
                 p.sendMessage(ChatColor.RED + args[1] + " isn't a valid rank.");
                 return true;
             }
@@ -85,7 +85,7 @@ public class RankVoucherCommand implements CommandExecutor, Listener {
                 return true;
             }
 
-            final String rank = Core.getCore().getApi().getGroupManager().getGroup(args[1]).getName();
+            final String rank = Core.getCore().getLuckPermsApi().getGroupManager().getGroup(args[1]).getName();
 
             rankVoucher = new RankVoucher(rank);
             rankVoucher.addVoucher(Bukkit.getPlayer(args[0]));

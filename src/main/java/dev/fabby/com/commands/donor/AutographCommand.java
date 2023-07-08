@@ -35,7 +35,7 @@ public class AutographCommand implements CommandExecutor {
                 return true;
             }
 
-            String prefix = Core.getCore().getApi().getPlayerAdapter(Player.class).getUser(player).getCachedData().getMetaData().getPrefix();
+            String prefix = Core.getCore().getLuckPermsApi().getPlayerAdapter(Player.class).getUser(player).getCachedData().getMetaData().getPrefix();
             String name = prefix + player.getName();
 
             ItemStack item = player.getInventory().getItemInMainHand();

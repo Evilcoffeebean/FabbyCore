@@ -69,7 +69,7 @@ public class Core extends JavaPlugin implements Listener {
     private CommandHandler commandHandler;
     private Task taskManager;
     private Economy economy;
-    private LuckPerms api;
+    private LuckPerms luckPermsApi;
     private TabUpdater tabUpdater;
     private NickConfig nickConfig;
     private CratesConfig cratesConfig;
@@ -195,7 +195,7 @@ public class Core extends JavaPlugin implements Listener {
     public void setupPermsApi() {
         RegisteredServiceProvider<LuckPerms> provider = getServer().getServicesManager().getRegistration(LuckPerms.class);
         if (provider != null) {
-            api = provider.getProvider();
+            luckPermsApi = provider.getProvider();
         }
     }
 
@@ -203,7 +203,7 @@ public class Core extends JavaPlugin implements Listener {
     public void onJoin(final PlayerJoinEvent e) {
         e.setJoinMessage(null);
 
-        final User user = api.getPlayerAdapter(Player.class).getUser(e.getPlayer());
+        final User user = luckPermsApi.getPlayerAdapter(Player.class).getUser(e.getPlayer());
         final String prefix = user.getCachedData().getMetaData().getPrefix();
         final String name = nickConfig.noNickname(e.getPlayer()) ? e.getPlayer().getName() : nickConfig.getNickname(e.getPlayer());
         final String joinMsg = String.format(JOIN_FORMAT, prefix, name);
@@ -230,7 +230,7 @@ public class Core extends JavaPlugin implements Listener {
     public void onQuit(final PlayerQuitEvent e) {
         e.setQuitMessage(null);
 
-        final User user = api.getPlayerAdapter(Player.class).getUser(e.getPlayer());
+        final User user = luckPermsApi.getPlayerAdapter(Player.class).getUser(e.getPlayer());
         final String prefix = user.getCachedData().getMetaData().getPrefix();
         final String name = nickConfig.noNickname(e.getPlayer()) ? e.getPlayer().getName() : nickConfig.getNickname(e.getPlayer());
         final String quitMsg = String.format(QUIT_FORMAT, prefix, name);
@@ -244,7 +244,7 @@ public class Core extends JavaPlugin implements Listener {
 
     @EventHandler (priority = EventPriority.HIGH)
     public void onChat(final AsyncPlayerChatEvent e) {
-        final User user = api.getPlayerAdapter(Player.class).getUser(e.getPlayer());
+        final User user = luckPermsApi.getPlayerAdapter(Player.class).getUser(e.getPlayer());
         final String prefix = user.getCachedData().getMetaData().getPrefix();
         final Tag tag = tagPlayerManager.getActiveTag(e.getPlayer());
         final String name = nickConfig.noNickname(e.getPlayer()) ? "%s" : nickConfig.getNickname(e.getPlayer());
@@ -262,9 +262,9 @@ public class Core extends JavaPlugin implements Listener {
     }
 
     private void updateBoard(FastBoard board, Player player) {
-        String group = api.getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
+        String group = luckPermsApi.getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
         String rank = !group.equalsIgnoreCase("default")
-                ? api.getPlayerAdapter(Player.class).getUser(player).getCachedData().getMetaData().getPrefix()
+                ? luckPermsApi.getPlayerAdapter(Player.class).getUser(player).getCachedData().getMetaData().getPrefix()
                 : "&7None";
 
         board.updateLines(

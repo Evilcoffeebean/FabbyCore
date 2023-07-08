@@ -18,7 +18,7 @@ public final class RankVoucher {
     public RankVoucher(String rank) {
         this.rank = rank;
 
-        final String display = Core.getCore().getApi().getGroupManager().getGroup(rank).getCachedData().getMetaData().getPrefix();
+        final String display = Core.getCore().getLuckPermsApi().getGroupManager().getGroup(rank).getCachedData().getMetaData().getPrefix();
         voucher = new ItemUtil(
                 Material.PAPER,
                 "&6&nRank Voucher:&r " + display,
@@ -40,7 +40,7 @@ public final class RankVoucher {
     }
 
     public void execute(Player player) {
-        String group = Core.getCore().getApi().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
+        String group = Core.getCore().getLuckPermsApi().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
         for (String s : staff) {
             if (group.equalsIgnoreCase(s)) {
                 player.sendMessage(ChatColor.RED + "Staff members can't claim rank vouchers.");

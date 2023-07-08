@@ -10,8 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.Locale;
-
 public class TabUpdater extends BukkitRunnable {
 
     //donors: VIP, MVP, ELITE, IMMORTAL
@@ -74,7 +72,7 @@ public class TabUpdater extends BukkitRunnable {
 
     private void setTeams(Player player) {
         String playerTeam = null;
-        String playerRank = Core.getCore().getApi().getPlayerAdapter(Player.class).getUser(player).getPrimaryGroup();
+        String playerRank = Core.getCore().getLuckPermsApi().getPlayerAdapter(Player.class).getUser(player).getPrimaryGroup();
 
         switch (playerRank.toLowerCase()) {
             case "owner":
