@@ -4,11 +4,15 @@ import com.google.gson.JsonObject;
 import dev.fabby.com.Core;
 import dev.fabby.com.libraries.player.callback.LoadReason;
 import dev.fabby.com.utils.Task;
+import lombok.Getter;
+import lombok.Setter;
 import net.luckperms.api.model.group.Group;
 import org.json.JSONObject;
 
 import java.util.UUID;
 
+@Getter
+@Setter
 public class FabbyPlayer {
 
     private UUID uuid;
@@ -32,7 +36,9 @@ public class FabbyPlayer {
             this.name = obj.getString("name");
             this.rank = Core.getCore().getLuckPermsApi().getGroupManager().getGroup(obj.getString("rank"));
 
-            this.staffSettings = obj.getJSONObject("staff_settings");
+            if(obj.has("staff_settings")) {
+                this.staffSettings = obj.getJSONObject("staff_settings");
+            }
 
             this.online = true;
             this.loaded = true;

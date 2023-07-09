@@ -21,7 +21,9 @@ import dev.fabby.com.fakeplayers.npc.NPCManager;
 import dev.fabby.com.fakeplayers.tasks.DeathMessageTask;
 import dev.fabby.com.kit.KitManager;
 import dev.fabby.com.kit.menu.KitMenuListener;
-import dev.fabby.com.listeners.StaffJoin;
+import dev.fabby.com.libraries.api.API;
+import dev.fabby.com.libraries.player.FabbyPlayer;
+import dev.fabby.com.listeners.PlayerJoin;
 import dev.fabby.com.misc.Scrambler;
 import dev.fabby.com.misc.ScramblerListener;
 import dev.fabby.com.staff.LocatorListener;
@@ -66,6 +68,7 @@ import java.util.logging.Level;
 public class Core extends JavaPlugin implements Listener {
 
     private static Core core;
+    private API api;
     private CommandHandler commandHandler;
     private Task taskManager;
     private Economy economy;
@@ -81,6 +84,7 @@ public class Core extends JavaPlugin implements Listener {
     private final TagPlayerManager tagPlayerManager = new TagPlayerManager();
     private final NPCManager npcManager = new NPCManager();
     private final Map<UUID, FastBoard> boards = new ConcurrentHashMap<>();
+    private final Map<UUID, FabbyPlayer> fabbyPlayers = new ConcurrentHashMap<>();
     private final String CHAT_FORMAT = "%s %s%s&7: "; //tag, rank, name
     private final String JOIN_FORMAT = "&7[&a+&7] %s%s", QUIT_FORMAT = "&7[&c-&7] %s%s"; //rank, name
     private final Sound JOIN_SOUND = Sound.BLOCK_NOTE_BLOCK_PLING;
@@ -94,6 +98,7 @@ public class Core extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         core = this;
+        api = new API();
         nickConfig = new NickConfig(this);
         cratesConfig = new CratesConfig();
         idFetcher = new IdFetcher(1);
@@ -142,7 +147,7 @@ public class Core extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new FakePlayerMenuListener(), this);
         getServer().getPluginManager().registerEvents(new FakeEventHandlers(), this);
         getServer().getPluginManager().registerEvents(new PersonalProtection(), this);
-        getServer().getPluginManager().registerEvents(new StaffJoin(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
 
         NPCLib.getInstance().registerPlugin(this);
 
@@ -280,6 +285,10 @@ public class Core extends JavaPlugin implements Listener {
                 ChatColor.translateAlternateColorCodes('&', "   &adiscord.gg/fabbysmp"),
                 ChatColor.translateAlternateColorCodes('&', "&6&l&m⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜⤜")
         );
+    }
+
+    public void addFabbyPlayer(FabbyPlayer fabbyPlayer) {
+        fabbyPlayers.put(fabbyPlayer.getUuid(), fabbyPlayer);
     }
 
     public void discordHook(String link, String rank, String name, String message) {
